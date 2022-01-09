@@ -1,0 +1,1033 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DangerMap</name>
+    </assembly>
+    <members>
+        <member name="F:DangerMap.Controllers.DiscussionController.discussionService">
+            <summary>
+            帳戶之服務
+            </summary>
+        </member>
+        <member name="M:DangerMap.Controllers.DiscussionController.#ctor(DangerMap.Services.EventDiscussionService)">
+            <summary>
+            建構子
+            </summary>
+            <param name="service">注入之服務</param>
+        </member>
+        <member name="M:DangerMap.Controllers.DiscussionController.GetAll(System.Guid)">
+            <summary>
+            取得指定事件之所有留言 【回傳值】: 200=>成功，204=>沒有留言，其他=>失敗
+            </summary>
+            <param name="eventId">事件ID</param>
+            <returns>留言資訊</returns>
+        </member>
+        <member name="M:DangerMap.Controllers.DiscussionController.Get(System.Guid,System.Int32)">
+            <summary>
+            取得指定事件之特定筆數留言 【回傳值】: 200=>成功，204=>沒有留言，其他=>失敗
+            </summary>
+            <param name="eventId">事件 ID</param>
+            <param name="amount">要取多少筆</param>
+            <returns>留言資訊</returns>
+        </member>
+        <member name="M:DangerMap.Controllers.DiscussionController.Post(DangerMap.Dtos.EventDiscussionDto)">
+            <summary>
+            新增一筆留言【需要有token(登入)】 【回傳值】: 200=>成功，401=>Token失效或有誤，其他=>失敗
+            </summary>
+            <param name="value">傳入格式:EventDiscussionDto【留言板資訊】</param>
+        </member>
+        <member name="M:DangerMap.Controllers.FCMController.PostToken(DangerMap.Dtos.NotifyTokenDto)">
+            <summary>
+            傳送裝置Token 【回傳值】 200=>成功，其他=>失敗
+            </summary>
+            <param name="value">存入之帳戶、裝置Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:DangerMap.Controllers.FCMController.NotifyByDistance(System.String,System.Double,System.Double)">
+            <summary>
+            若周遭有事件，會推播 【回傳值】 200成功(有可能沒事)，其他=>失敗
+            </summary>
+            <param name="id">要推播的帳戶ID</param>
+            <param name="longitude">當時座標經度</param>
+            <param name="latitude">當時座標緯度</param>
+            <returns></returns>
+        </member>
+        <member name="M:DangerMap.Controllers.FCMController.NotifyAtTime">
+            <summary>
+            排程專用夜歸提醒推播
+            </summary>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:DangerMap.Controllers.InstantController" -->
+        <member name="F:DangerMap.Controllers.InstantController.eventService">
+            <summary>
+            事件之服務
+            </summary>
+        </member>
+        <member name="F:DangerMap.Controllers.InstantController.accountService">
+            <summary>
+            帳戶之服務
+            </summary>
+        </member>
+        <member name="F:DangerMap.Controllers.InstantController.witnessService">
+            <summary>
+            目擊之服務
+            </summary>
+        </member>
+        <member name="M:DangerMap.Controllers.InstantController.#ctor(DangerMap.Services.InstantEventService,DangerMap.Services.AccountProfileService,DangerMap.Services.EventWitnessService)">
+            <summary>
+            建構子
+            </summary>
+            <param name="service">事件服務</param>
+            <param name="service2">會員服務</param>
+            <param name="service3">目擊服務</param>
+        </member>
+        <member name="M:DangerMap.Controllers.InstantController.GetAllEvent">
+            <summary>
+            取得全部事件 【回傳值】: 200=>成功(事件{InstantEvent})，其他=>失敗
+            </summary>
+            <returns>事件List</returns>
+        </member>
+        <member name="M:DangerMap.Controllers.InstantController.GetEvent(System.String,System.Guid)">
+            <summary>
+            取得一筆事件 【回傳值】: 200=>成功(事件{InstantEventOutputDto})，其他=>失敗
+            </summary>
+            <param name="accountID">查詢者ID</param>
+            <param name="eventID">查詢的資料</param>
+            <returns>事件</returns>
+        </member>
+        <member name="M:DangerMap.Controllers.InstantController.GetEventByRange(System.String,System.Double,System.Double)">
+            <summary>
+            取得固定範圍事件 【回傳值】: 200=>成功(事件{InstantEventOutputDto})，204=>範圍內沒事件，其他=>失敗
+            </summary>
+            <param name="accountID">使用者ID</param>
+            <param name="longitude">使用者座標經度</param>
+            <param name="latitude">使用者座標緯度</param>
+            <returns>事件Dto List</returns>
+        </member>
+        <member name="M:DangerMap.Controllers.InstantController.GetEventByRangeNoLogin(System.Double,System.Double)">
+            <summary>
+            取得固定範圍事件(免登入) 【回傳值】: 200=>成功(事件{InstantEventOutputDto})，204=>範圍內沒事件，其他=>失敗
+            </summary>
+            <param name="accountID">使用者ID</param>
+            <param name="longitude">使用者座標經度</param>
+            <param name="latitude">使用者座標緯度</param>
+            <returns>事件Dto List</returns>
+        </member>
+        <member name="M:DangerMap.Controllers.InstantController.GetEventByOptionalRange(System.String,System.Double,System.Double,System.Double)">
+            <summary>
+            取得特定範圍事件 【回傳值】: 200=>成功(事件{InstantEventOutputDto})，204=>範圍內沒事件，其他=>失敗
+            </summary>
+            <param name="accountID">使用者ID</param>
+            <param name="longitude">使用者座標經度</param>
+            <param name="latitude">使用者座標緯度</param>
+            <returns>事件Dto List</returns>
+        </member>
+        <member name="M:DangerMap.Controllers.InstantController.GetEventByRangeOptionalNoLogin(System.Double,System.Double,System.Double)">
+            <summary>
+            取得特定範圍事件(免登入) 【回傳值】: 200=>成功(事件{InstantEventOutputDto})，204=>範圍內沒事件，其他=>失敗
+            </summary>
+            <param name="accountID">使用者ID</param>
+            <param name="longitude">使用者座標經度</param>
+            <param name="latitude">使用者座標緯度</param>
+            <returns>事件Dto List</returns>
+        </member>
+        <member name="M:DangerMap.Controllers.InstantController.GetWitness(System.Guid)">
+            <summary>
+            取得特定事件目擊數 【回傳值】: 200=>成功(目擊數{int})，其他=>失敗
+            </summary>
+            <param name="Id">事件 ID</param>
+            <returns>目擊數</returns>
+        </member>
+        <member name="M:DangerMap.Controllers.InstantController.GetNoWitness(System.Guid)">
+            <summary>
+            取得特定事件未目擊數 【回傳值】: 200=>成功(未目擊數{int})，其他=>失敗
+            </summary>
+            <param name="Id">事件 ID</param>
+            <returns>未目擊數</returns>
+        </member>
+        <member name="M:DangerMap.Controllers.InstantController.PostEvent(DangerMap.Dtos.InstantEventInputDto)">
+            <summary>
+            上傳事件【需要有token(登入)+已驗證】 Header寫法 : "Authorization : Bearer  + {Token字串}" 【回傳值】: 200=>成功，401=>Token有誤或缺失，404=>沒有驗證，其他=>失敗
+            </summary>
+            <param name="value">傳入格式:InstantEventInputDto【事件資訊】</param>
+        </member>
+        <member name="M:DangerMap.Controllers.InstantController.PostWitness(DangerMap.Dtos.WitnessDto)">
+            <summary>
+            是否目擊事件【需要有token(登入)+已驗證】 【回傳值】: 200=>成功，401=>Token有誤或缺失，404=>該會員沒有驗證，其他=>失敗
+            </summary>
+            <param name="value">傳入格式:WitnessDto【目擊資訊】</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:DangerMap.Controllers.InstantController.DeleteEvent">
+            <summary>
+            刪除過了兩天之事件 【前端無須使用，GCP掛載排程專用】
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DangerMap.Controllers.InstantController.IsValidation">
+            <summary>
+            用token判斷用戶是否驗證
+            </summary>
+            <returns>有"1"或沒有"0"驗證</returns>
+        </member>
+        <member name="F:DangerMap.Controllers.MemberController.accountService">
+            <summary>
+            帳戶之服務
+            </summary>
+        </member>
+        <member name="F:DangerMap.Controllers.MemberController.httpContextAccessor">
+            <summary>
+            取得回傳值之服務
+            </summary>
+        </member>
+        <member name="F:DangerMap.Controllers.MemberController.database">
+            <summary>
+            資料庫
+            </summary>
+        </member>
+        <member name="M:DangerMap.Controllers.MemberController.#ctor(DangerMap.Services.AccountProfileService,DangerMap.JWT.JwtAuthenticationManager,DangerMap.Models.db.uploadtestv1Context,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            建構子
+            </summary>
+        </member>
+        <member name="M:DangerMap.Controllers.MemberController.GetAccount(System.String)">
+            <summary>
+            取得會員資訊 【需要Token】 【回傳值】: 200=>成功(附帶會員資訊{AccountProfileDto})，204 =>查無此人，其他=>失敗
+            </summary>
+            <param name="id">要取得的ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:DangerMap.Controllers.MemberController.Login(DangerMap.Dtos.AccountLoginDto)">
+            <summary>
+            登入 【回傳值】: 200=>成功(附帶Token{string})，其他=>帳號或密碼有誤
+            </summary>
+            <param name="idAndPassword">帳密:AccountLoginDto</param>
+            <returns>成功給token，失敗回傳帳密錯誤</returns>
+        </member>
+        <member name="M:DangerMap.Controllers.MemberController.PostMember(DangerMap.Dtos.AccountProfileInputDto)">
+            <summary>
+            上傳會員資料(註冊) 【回傳值】: 200=>成功，404 => 伺服器找不到(錯誤)，其他=>失敗
+            </summary>
+            <param name="value">傳入格式:AccountProfileInputDto【註冊所需資料】</param>
+        </member>
+        <member name="M:DangerMap.Controllers.MemberController.Refresh(DangerMap.Dtos.TokenDto)">
+            <summary>
+            換發token 【回傳值】: 200=>成功(附帶Token{string})，401 => 沒有權限，重新登入，400=>token有誤
+            </summary>
+            <param name="token">AccountID、舊的Token</param>
+            <returns>400:token給錯 401:請重新登入 200: 回傳新的token</returns>
+        </member>
+        <member name="M:DangerMap.Controllers.MemberController.EditNameAndPropic(System.String,DangerMap.Dtos.AccountPutDto)">
+            <summary>
+            修改帳號暱稱和大頭貼 【回傳值】: 200=>成功，204=>查無此人，其他=>失敗
+            </summary>
+            <param name="id"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DangerMap.Controllers.MemberController.EditPassword(System.String,DangerMap.Dtos.AccountPasswordPutDto)">
+            <summary>
+            更改使用者密碼 【需要登入】 【回傳值】: 200=>成功，204=>查無此人，其他=>失敗
+            </summary>
+            <param name="id"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DangerMap.Controllers.MemberController.Logout(DangerMap.Dtos.AccountIDDto)">
+            <summary>
+            登出 【回傳值】: 200=>成功，其他=>失敗
+            </summary>
+            <param name="id">要登出的AccountID</param>
+            <returns></returns>
+        </member>
+        <member name="M:DangerMap.Controllers.MemberController.Verify(System.String)">
+            <summary>
+            將用戶變成已驗證 【前端無需使用】
+            </summary>
+            <param name="id">用戶ID</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:DangerMap.Controllers.MemberController.SendValidationMail(System.String)">
+            <summary>
+            寄出驗證信 【回傳值】: 200=>成功(如果信箱是錯的，無從考證)，其他=>失敗
+            </summary>
+            <param name="id">用戶ID</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:DangerMap.Controllers.MemberController.SendPasswordMail(DangerMap.Dtos.AccountIDDto)">
+            <summary>
+            寄出忘記密碼信 【回傳值】: 200=>成功(如果信箱是錯的，無從考證)，404=>查無此ID，其他=>失敗
+            </summary>
+            <param name="account">用戶ID</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:DangerMap.Controllers.NewsTickerController.Get">
+            <summary>
+            抓取全部跑馬燈內容 【回傳值】: 200=>成功
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:DangerMap.Controllers.NotInstantController.criminalIncidentService">
+            <summary>
+            事件之服務
+            </summary>
+        </member>
+        <member name="F:DangerMap.Controllers.NotInstantController.trafficAccidentService">
+            <summary>
+            事故之服務
+            </summary>
+        </member>
+        <member name="M:DangerMap.Controllers.NotInstantController.GetAreaCriminal(System.Double,System.Double)">
+            <summary>
+            取得特定範圍犯罪事件統計 【使用方式】:網址後直接加上【?longitude=X{and}latitude=Y】 【回傳值】: 200=>成功 ， 204 => 沒有資料 ，其他=>失敗
+            </summary>
+            <param name="longitude">使用者座標經度</param>
+            <param name="latitude">使用者座標緯度</param>
+            <returns>犯罪事件統計</returns>
+        </member>
+        <member name="M:DangerMap.Controllers.NotInstantController.GetAreaAccident(System.Double,System.Double)">
+            <summary>
+            取得特定範圍交通事故  【回傳值】: 200=>成功 ， 204 => 沒有資料 ，其他=>失敗
+            </summary>
+            <param name="longitude">使用者座標經度</param>
+            <param name="latitude">使用者座標緯度</param>
+            <returns>犯罪事件List</returns>
+        </member>
+        <member name="T:DangerMap.Dtos.AccountIDDto">
+            <summary>
+            操作帳號之指派
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.AccountIDDto.AccountId">
+            <summary>
+            要操作的帳戶ID
+            </summary>
+        </member>
+        <member name="T:DangerMap.Dtos.AccountLoginDto">
+            <summary>
+            登入帳號密碼
+            </summary>
+        </member>
+        <member name="T:DangerMap.Dtos.AccountPasswordPutDto">
+            <summary>
+            改密碼專用
+            </summary>
+        </member>
+        <member name="T:DangerMap.Dtos.AccountProfileDto">
+            <summary>
+            會員資訊
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.AccountProfileDto.AccountId">
+            <summary>
+            帳號
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.AccountProfileDto.AccountName">
+            <summary>
+            暱稱
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.AccountProfileDto.AccountEmail">
+            <summary>
+            信箱
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.AccountProfileDto.PropicLink">
+            <summary>
+            大頭貼URL
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.AccountProfileDto.Validation">
+            <summary>
+            是否驗證了，1=是，0=否
+            </summary>
+        </member>
+        <member name="T:DangerMap.Dtos.AccountProfileInputDto">
+            <summary>
+            註冊所需資料
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.AccountProfileInputDto.AccountId">
+            <summary>
+            帳號 (15個字，只能包含數字英文底線)
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.AccountProfileInputDto.Password">
+            <summary>
+            密碼 (只剩暗碼)
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.AccountProfileInputDto.AccountName">
+            <summary>
+            暱稱 (8個字)
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.AccountProfileInputDto.AccountEmail">
+            <summary>
+            信箱
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.AccountProfileInputDto.PropicLink">
+            <summary>
+            大頭貼URL
+            </summary>
+        </member>
+        <member name="T:DangerMap.Dtos.AccountPutDto">
+            <summary>
+            修改【暱稱或大頭貼】
+            </summary>
+        </member>
+        <member name="T:DangerMap.Dtos.DiscussionOutputDto">
+            <summary>
+            留言之回傳資料
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.DiscussionOutputDto.AccountId">
+            <summary>
+            留言者帳號
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.DiscussionOutputDto.AccountName">
+            <summary>
+            留言者暱稱
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.DiscussionOutputDto.PropicLink">
+            <summary>
+            留言者大頭
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.DiscussionOutputDto.CommentTime">
+            <summary>
+            留言時間
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.DiscussionOutputDto.Comment">
+            <summary>
+            劉言內容
+            </summary>
+        </member>
+        <member name="T:DangerMap.Dtos.EventDiscussionDto">
+            <summary>
+            留言板資訊
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.IncidentOutPutDto.District">
+            <summary>
+            行政區
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.IncidentOutPutDto.Snatch">
+            <summary>
+            搶奪
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.IncidentOutPutDto.Rape">
+            <summary>
+            強制性交
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.IncidentOutPutDto.Rob">
+            <summary>
+            竊盜
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.IncidentOutPutDto.CarTheft">
+            <summary>
+            汽車竊盜
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.IncidentOutPutDto.ScooterTheft">
+            <summary>
+            機車竊盜
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.IncidentOutPutDto.Drug">
+            <summary>
+            毒品
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.IncidentOutPutDto.HouseTheft">
+            <summary>
+            住宅竊盜
+            </summary>
+        </member>
+        <member name="T:DangerMap.Dtos.InstantEventInputDto">
+            <summary>
+            事件資訊
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.InstantEventInputDto.Type">
+            <summary>
+            事件類型
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.InstantEventInputDto.Title">
+            <summary>
+            事件標題 (25字)
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.InstantEventInputDto.Description">
+            <summary>
+            事件描述 (200字)
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.InstantEventInputDto.Longitude">
+            <summary>
+            事件經度
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.InstantEventInputDto.Latitude">
+            <summary>
+            事件緯度
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.InstantEventInputDto.LocationDetails">
+            <summary>
+            事件地點描述 (25字)
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.InstantEventInputDto.UploadTime">
+            <summary>
+            上傳時間
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.InstantEventInputDto.ShotLink">
+            <summary>
+            照片URL
+            </summary>
+        </member>
+        <member name="T:DangerMap.Dtos.InstantEventOutputDto">
+            <summary>
+            事件資訊
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.InstantEventOutputDto.EventId">
+            <summary>
+            事件 ID
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.InstantEventOutputDto.UploaderAccountId">
+            <summary>
+            上傳者 ID
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.InstantEventOutputDto.UploaderAccountName">
+            <summary>
+            上傳者暱稱
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.InstantEventOutputDto.UploaderPropicLink">
+            <summary>
+            上傳者大頭貼
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.InstantEventOutputDto.Type">
+            <summary>
+            事件類型
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.InstantEventOutputDto.Title">
+            <summary>
+            事件標題
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.InstantEventOutputDto.Description">
+            <summary>
+            事件敘述
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.InstantEventOutputDto.Longitude">
+            <summary>
+            經度
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.InstantEventOutputDto.Latitude">
+            <summary>
+            緯度
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.InstantEventOutputDto.LocationDetails">
+            <summary>
+            地點額外描述
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.InstantEventOutputDto.UploadTime">
+            <summary>
+            上傳時間
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.InstantEventOutputDto.ShotLink">
+            <summary>
+            事件照片
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.InstantEventOutputDto.TotalWitness">
+            <summary>
+            該事件總目擊數
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.InstantEventOutputDto.TotalNotWitness">
+            <summary>
+            該事件總未目擊數
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.InstantEventOutputDto.IsWitness">
+            <summary>
+            是否目擊 0=沒參與此事件，1=有目擊,2=沒看到
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.NotifyTokenDto.AccountId">
+            <summary>
+            要操作的帳戶ID
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.NotifyTokenDto.NotificationToken">
+            <summary>
+            存入的通知推播裝置ID TOKEN
+            </summary>
+        </member>
+        <member name="T:DangerMap.Dtos.TokenDto">
+            <summary>
+            換發Token專用
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.TokenDto.AccountID">
+            <summary>
+            帳號
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.TokenDto.Token">
+            <summary>
+            舊的Token
+            </summary>
+        </member>
+        <member name="T:DangerMap.Dtos.WitnessDto">
+            <summary>
+            目擊資訊
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.WitnessDto.EventId">
+            <summary>
+            事件ID
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.WitnessDto.AccountId">
+            <summary>
+            按是否目擊者之用戶ID
+            </summary>
+        </member>
+        <member name="P:DangerMap.Dtos.WitnessDto.IsWitness">
+            <summary>
+            是否目擊 0=沒參與此事件，1=有目擊,2=沒看到
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "F:DangerMap.Global.LEGAL_ID_PASSWORD" -->
+        <member name="F:DangerMap.Global.ILLEGAL_WORD">
+            <summary>
+            留言禁止字元
+            </summary>
+        </member>
+        <member name="F:DangerMap.Global.COMMENT_LENGTH">
+            <summary>
+            限制留言字元數量
+            </summary>
+        </member>
+        <member name="F:DangerMap.Global.TITLE_LENGTH">
+            <summary>
+            限制事件標題字元數量
+            </summary>
+        </member>
+        <member name="F:DangerMap.Global.LOCATION_LENGTH">
+            <summary>
+            限制地點描述字元數量
+            </summary>
+        </member>
+        <member name="F:DangerMap.Global.EVENT_DETAIL_LENGTH">
+            <summary>
+            限制事件描述字元數量
+            </summary>
+        </member>
+        <member name="F:DangerMap.Global.SEARCH_RANGE_DOUBLE">
+            <summary>
+            搜尋範圍 (經緯度轉換)
+            </summary>
+        </member>
+        <member name="M:DangerMap.Global.SendMail(System.String,System.String,System.String,System.String)">
+            <summary>
+            寄信
+            </summary>
+            <param name="mailReceiver">接收者信箱</param>
+            <param name="sender">寄信者名字</param>
+            <param name="subject">信件標題</param>
+            <param name="body">信件內容</param>
+        </member>
+        <member name="M:DangerMap.Global.SendNotification(System.String,System.String,System.String)">
+            <summary>
+            推播發送消息
+            </summary>
+            <param name="message">推播內容</param>
+            <param name="title">推播標題</param>
+            <param name="id">裝置id</param>
+            <returns></returns>
+        </member>
+        <member name="M:DangerMap.Global.SendNotification(System.String,System.String,System.String[])">
+            <summary>
+            推播發送消息(廣播)
+            </summary>
+            <param name="message">推播內容</param>
+            <param name="title">推播標題</param>
+            <param name="id">裝置id</param>
+            <returns></returns>
+        </member>
+        <member name="M:DangerMap.Global.MeterChange2Tude(System.Double)">
+            <summary>
+            想搜尋之公尺轉換
+            </summary>
+            <param name="meter">想搜尋的範圍</param>
+            <returns>經緯度約莫是差多少度</returns>
+        </member>
+        <member name="T:DangerMap.JWT.AuthenticationResponse">
+            <summary>
+            JWT Model
+            </summary>
+        </member>
+        <member name="T:DangerMap.JWT.JwtAuthenticationManager">
+            <summary>
+            生成JWT之服務
+            </summary>
+        </member>
+        <member name="F:DangerMap.JWT.JwtAuthenticationManager.database">
+            <summary>
+            資料庫
+            </summary>
+        </member>
+        <member name="F:DangerMap.JWT.JwtAuthenticationManager.configuration">
+            <summary>
+            設定檔
+            </summary>
+        </member>
+        <member name="F:DangerMap.JWT.JwtAuthenticationManager.refreshTokenGenertor">
+            <summary>
+            生成更新Token之服務
+            </summary>
+        </member>
+        <member name="M:DangerMap.JWT.JwtAuthenticationManager.#ctor(DangerMap.Models.db.uploadtestv1Context,Microsoft.Extensions.Configuration.IConfiguration,DangerMap.JWT.IRefreshTokenGenerator)">
+            <summary>
+            建構子
+            </summary>
+        </member>
+        <member name="M:DangerMap.JWT.JwtAuthenticationManager.Authenticate(DangerMap.Dtos.AccountLoginDto)">
+            <summary>
+            登入生成JWT
+            </summary>
+            <param name="idPassword">帳密</param>
+            <returns>回傳Token</returns>
+        </member>
+        <member name="M:DangerMap.JWT.JwtAuthenticationManager.Refresh(DangerMap.JWT.AuthenticationResponse)">
+            <summary>
+            Refresh 新的JWT
+            </summary>
+            <param name="refreshCred">舊的</param>
+            <returns>新的</returns>
+        </member>
+        <member name="M:DangerMap.JWT.JwtAuthenticationManager.CleanRefreshToken(System.String)">
+            <summary>
+            清除RefreshToken
+            </summary>
+            <param name="accountID">要清除之用戶ID</param>
+            <returns>成功或失敗</returns>
+        </member>
+        <member name="T:DangerMap.JWT.RefreshTokenGenerator">
+            <summary>
+            專門生成隨機token之服務
+            </summary>
+        </member>
+        <member name="F:DangerMap.Services.AccountProfileService.database">
+            <summary>
+            資料庫
+            </summary>
+        </member>
+        <member name="M:DangerMap.Services.AccountProfileService.UploadData(DangerMap.Dtos.AccountProfileInputDto)">
+            <summary>
+            上傳會員資料(註冊)
+            </summary>
+        </member>
+        <member name="M:DangerMap.Services.AccountProfileService.EditNameAndPropic(System.String,DangerMap.Dtos.AccountPutDto)">
+            <summary>
+            修改會員暱稱和大頭貼
+            </summary>
+            <param name="accountId"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DangerMap.Services.AccountProfileService.EditPassword(System.String,DangerMap.Dtos.AccountPasswordPutDto)">
+            <summary>
+            修改會員密碼
+            </summary>
+            <param name="AccountId"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DangerMap.Services.AccountProfileService.GetAccountProfile(System.String)">
+            <summary>
+            取得一筆特定會員資料
+            </summary>
+            <param name="AccountID">要查詢會員的帳號</param>
+            <returns>回傳該會員資料或null</returns>
+        </member>
+        <member name="M:DangerMap.Services.AccountProfileService.Verify(System.String)">
+            <summary>
+            驗證用戶
+            </summary>
+            <param name="accountID">要驗證的用戶ID</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:DangerMap.Services.AccountProfileService.SendMailByGmail(System.String)">
+            <summary>
+            寄出驗證信 
+            </summary>
+            <param name="accountID">要驗證的用戶ID</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:DangerMap.Services.AccountProfileService.ForgetPassword(System.String)">
+            <summary>
+            寄出忘記密碼之信
+            </summary>
+            <param name="accountID">忘記密碼之使用者ID</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="F:DangerMap.Services.CriminalIncidentService.database">
+            <summary>
+            資料庫
+            </summary>
+        </member>
+        <member name="M:DangerMap.Services.CriminalIncidentService.getDataByArea(System.Double,System.Double)">
+            <summary>
+            指定行政區之犯罪資料
+            </summary>
+            <param name="longitude">使用者經度</param>
+            <param name="latitude">使用者緯度</param>
+            <returns>犯罪統計表</returns>
+        </member>
+        <member name="M:DangerMap.Services.CriminalIncidentService.ProcessRequest(System.Double,System.Double)">
+            <summary>
+            座標轉行政區
+            </summary>
+            <param name="lat">使用者緯度</param>
+            <param name="lng">使用者經度</param>
+            <returns>行政區</returns>
+        </member>
+        <member name="F:DangerMap.Services.EventDiscussionService.database">
+            <summary>
+            資料庫
+            </summary>
+        </member>
+        <member name="M:DangerMap.Services.EventDiscussionService.GetAllDatas(System.Guid)">
+            <summary>
+            取得指定事件之所有留言
+            </summary>
+            <param name="eventID">事件ID</param>
+            <returns>留言List</returns>
+        </member>
+        <member name="M:DangerMap.Services.EventDiscussionService.GetDatas(System.Guid,System.Int32)">
+            <summary>
+            取得指定事件之固定數量留言
+            </summary>
+            <param name="eventID">事件ID</param>
+            <param name="amount">數量</param>
+            <returns>留言List</returns>
+        </member>
+        <member name="M:DangerMap.Services.EventDiscussionService.PutOneData(DangerMap.Dtos.EventDiscussionDto)">
+            <summary>
+            新增一筆留言
+            </summary>
+            <param name="eventID">事件ID</param>
+            <returns>留言List</returns>
+        </member>
+        <member name="F:DangerMap.Services.EventWitnessService.database">
+            <summary>
+            資料庫
+            </summary>
+        </member>
+        <member name="M:DangerMap.Services.EventWitnessService.GetWitnessAmount(System.Guid)">
+            <summary>
+            取得特定事件目擊數
+            </summary>
+            <param name="EventID">要查詢事件的ID</param>
+            <returns>目擊數量</returns>
+        </member>
+        <member name="M:DangerMap.Services.EventWitnessService.GetNoWitnessAmount(System.Guid)">
+            <summary>
+            取得特定事件未目擊數
+            </summary>
+            <param name="EventID">要查詢事件的ID</param>
+            <returns>未目擊數量</returns>
+        </member>
+        <member name="M:DangerMap.Services.EventWitnessService.PostWitness(DangerMap.Dtos.WitnessDto)">
+            <summary>
+            按下目擊或沒目擊
+            </summary>
+            <param name="input">對該事件目擊或沒目擊</param>
+            <returns>成功或失敗</returns>
+        </member>
+        <member name="F:DangerMap.Services.FCMNotificationManager.database">
+            <summary>
+            資料庫
+            </summary>
+        </member>
+        <member name="M:DangerMap.Services.FCMNotificationManager.PostNotifyToken(System.String,System.String)">
+            <summary>
+            存入裝置ID(for推播)
+            </summary>
+            <param name="accountID">要存入之帳戶ID</param>
+            <param name="token">TOKEN</param>
+            <returns></returns>
+        </member>
+        <member name="M:DangerMap.Services.FCMNotificationManager.SendMessage(System.String,System.Double,System.Double)">
+            <summary>
+            即時性推播
+            </summary>
+            <param name="accountID">要推播的帳戶</param>
+            <param name="longitude">使用者經度</param>
+            <param name="latitude">使用者緯度</param>
+        </member>
+        <member name="M:DangerMap.Services.FCMNotificationManager.SendMessageAtTime">
+            <summary>
+            排程專用API 【夜歸提醒】
+            </summary>
+        </member>
+        <member name="F:DangerMap.Services.InstantEventService.database">
+            <summary>
+            事件編號
+            </summary>
+            <summary>
+            資料庫
+            </summary>
+        </member>
+        <member name="M:DangerMap.Services.InstantEventService.getAllData">
+            <summary>
+            全部事件
+            </summary>
+            <returns>事件List</returns>
+        </member>
+        <member name="M:DangerMap.Services.InstantEventService.getData(System.String,System.Guid)">
+            <summary>
+            取得一筆事件
+            </summary>
+            <param name="accountID">查詢者帳號</param>
+            <param name="id">事件id</param>
+            <returns>資料</returns>
+        </member>
+        <member name="M:DangerMap.Services.InstantEventService.getDataByDistance(System.String,System.Double,System.Double)">
+            <summary>
+            定點的一定範圍內之事件
+            </summary>
+            <param name="accountID">查詢者之ID</param>
+            <param name="longitude">查詢者經度</param>
+            <param name="latitude">查詢者緯度</param>
+            <returns></returns>
+        </member>
+        <member name="M:DangerMap.Services.InstantEventService.getDataByDistance(System.String,System.Double,System.Double,System.Double)">
+            <summary>
+            定點的一定範圍內之事件
+            </summary>
+            <param name="accountID">查詢者之ID</param>
+            <param name="longitude">查詢者經度</param>
+            <param name="latitude">查詢者緯度</param>
+            <param name="searchRange">範圍大小(經緯度)</param>
+            <returns></returns>
+        </member>
+        <member name="M:DangerMap.Services.InstantEventService.getDataByDistanceNoLogin(System.Double,System.Double)">
+            <summary>
+            定點的一定範圍內之事件 (免登入)
+            </summary>
+            <param name="accountID">查詢者之ID</param>
+            <param name="longitude">查詢者經度</param>
+            <param name="latitude">查詢者緯度</param>
+            <returns></returns>
+        </member>
+        <member name="M:DangerMap.Services.InstantEventService.getDataByDistanceNoLogin(System.Double,System.Double,System.Double)">
+            <summary>
+            定點的一定範圍內之事件 (免登入)
+            </summary>
+            <param name="accountID">查詢者之ID</param>
+            <param name="longitude">查詢者經度</param>
+            <param name="latitude">查詢者緯度</param>
+            <param name="searchRange">範圍大小(經緯度)</param>
+            <returns></returns>
+        </member>
+        <member name="M:DangerMap.Services.InstantEventService.getDataByAccount(System.String)">
+            <summary>
+            指定會員所上傳過的事件
+            </summary>
+            <param name="accountID">指定會員帳號</param>
+            <returns>事件List</returns>
+        </member>
+        <member name="M:DangerMap.Services.InstantEventService.UploadData(DangerMap.Dtos.InstantEventInputDto)">
+            <summary>
+            新增事件至資料庫
+            </summary>
+            <param name="input">事件</param>
+        </member>
+        <member name="M:DangerMap.Services.InstantEventService.DeleteExpiredData">
+            <summary>
+            刪除超過兩天的事件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:DangerMap.Services.NewsTickerService.database">
+            <summary>
+            資料庫
+            </summary>
+        </member>
+        <member name="M:DangerMap.Services.NewsTickerService.GetAllNews">
+            <summary>
+            全部跑馬燈資料
+            </summary>
+            <returns>事件List</returns>
+        </member>
+        <member name="M:DangerMap.Services.NewsTickerService.PutNews(DangerMap.Dtos.NewsTickerDto)">
+            <summary>
+            輸入一筆跑馬燈資料
+            </summary>
+            <returns>事件List</returns>
+        </member>
+        <member name="M:DangerMap.Services.NewsTickerService.DeleteAllNews">
+            <summary>
+            刪除所有跑馬燈資料
+            </summary>
+            <returns>事件List</returns>
+        </member>
+        <member name="F:DangerMap.Services.TrafficAccidentService.database">
+            <summary>
+            資料庫
+            </summary>
+        </member>
+        <member name="M:DangerMap.Services.TrafficAccidentService.getDataByRange(System.Double,System.Double)">
+            <summary>
+            指定座標範圍內之交通事故資料
+            </summary>
+            <param name="longitude">使用者經度</param>
+            <param name="latitude">使用者緯度</param>
+            <returns>交通事故List</returns>
+        </member>
+        <member name="T:DangerMap.ValidationAttributes.AccountIDAttribute">
+            <summary>
+            AccountID 驗證: 驗證是否存在該 ID, 如取得特定 ID 實體可進行操作修改
+            </summary>
+        </member>
+        <member name="T:DangerMap.ValidationAttributes.AccountNameAttribute">
+            <summary>
+            帳號暱稱之驗證
+            </summary>
+        </member>
+        <member name="T:DangerMap.ValidationAttributes.UserMessageAttribute">
+            <summary>
+            留言內容驗證
+            </summary>
+        </member>
+    </members>
+</doc>

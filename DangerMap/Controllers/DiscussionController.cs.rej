@@ -1,0 +1,28 @@
+diff a/DangerMap/Controllers/DiscussionController.cs b/DangerMap/Controllers/DiscussionController.cs	(rejected hunks)
+@@ -46,6 +46,26 @@
+             }            
+         }
+ 
++        /// <summary>
++        /// 取得指定事件之特定筆數留言
++        /// </summary>
++        /// <param name="eventId">事件 ID</param>
++        /// <param name="amount">要取多少筆</param>
++        /// <returns></returns>
++        // GET api/<DiscussionController>/
++        [HttpGet("{eventId}/{amount}")]
++        public ActionResult Get(Guid eventId,  int amount)
++        {
++            try
++            {
++                return Ok(discussionService.GetDatas(eventId,amount));
++            }
++            catch (Exception)
++            {
++                return NotFound();
++            }
++        }
++
+         /// <summary>
+         /// 新增一筆留言【需要有token(登入)】
+         /// </summary>
